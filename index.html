@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>ELMI – Errori</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Libreria per leggere file Excel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-image: url('sfondo-elmi-verticale.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+  }
+
+  .home-button {
+    position: fixed;
+    font-size: 30px;
+    top: 5px;
+    right: 5px;
+    background-color: #d9534f;
+    color: white;
+    padding: 6px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    transition: background-color 0.2s ease;
+    z-index: 999;
+  }
+
+  .home-button:hover {
+    background-color: #c9302c;
+  }
+
+  header {
+    background: #b91c1c;
+    color: white;
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: transparent !important;
+    padding: 30px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-top: 20px;
+    font-size: 26px;
+    color: red;
+  }
+
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #9ca3af;
+    font-size: 16px;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #9ca3af;
+    font-size: 16px;
+    resize: vertical;
+    min-height: 90px;
+  }
+
+  /* IMMAGINE */
+  .pdf-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .pdf-image {
+    width: 100%;
+    border-radius: 10px;
+  }
+</style>
+</head>
+
+<body>
+
+<a class="home-button" href="https://balza1979.github.io/Elmi-Documenti/">Home</a>
+
+<header>ELMI</header>
+
+<div class="container">
+  <label id="labelA">Caricamento...</label>
+  <select id="menu"></select>
+
+  <label id="labelB"></label>
+  <textarea id="campoB" readonly></textarea>
+
+  <label id="labelC"></label>
+  <textarea id="campoC" readonly></textarea>
+
+  <label id="labelD"></label>
+  <textarea id="campoD" readonly></textarea>
+</div>
+
+<!-- ✅ IMMAGINE sotto -->
+<div class="pdf-container">
+  <img src="stato_scheda.png" alt="stato_scheda" class="pdf-image">
+  <img src="led_gialli.png" alt="Led gialli" class="pdf-image">
+  <img src="Info_aggiuntive_errori v1.png" alt="Info_aggiuntive_errori v1" class="pdf-image">
+ 
+</div>
+
+<script>
+async function caricaExcel() {
+  const file = await fetch("errori.xlsx");
+  const arrayBuffer = await file.arrayBuffer();
+  const workbook = XLSX.read(arrayBuffer, { type: "array" });
+
+  const sheet = workbook.Sheets["errori"];
+  const dati = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+  const intestazioni = dati[0];
+  const righe = dati.slice(1);
+
+  document.getElementById("labelA").textContent = intestazioni[0];
+  document.getElementById("labelB").textContent = intestazioni[1];
+  document.getElementById("labelC").textContent = intestazioni[2];
+  document.getElementById("labelD").textContent = intestazioni[3];
+
+  const menu = document.getElementById("menu");
+
+  righe.forEach((riga, index) => {
+    const opt = document.createElement("option");
+    opt.value = index;
+    opt.textContent = riga[0];
+    menu.appendChild(opt);
+  });
+
+  menu.addEventListener("change", () => {
+    const r = righe[menu.value];
+    document.getElementById("campoB").value = r[1] || "";
+    document.getElementById("campoC").value = r[2] || "";
+    document.getElementById("campoD").value = r[3] || "";
+  });
+
+  menu.dispatchEvent(new Event("change"));
+}
+
+caricaExcel();
+</script>
+
+</body>
+</html>
