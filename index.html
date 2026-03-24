@@ -5,8 +5,8 @@
 <title>ELMI – Errori</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Libreria per leggere file Excel -->
-<script/cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js
+<!-- Libreria XLSX corretta -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <style>
   body {
@@ -48,7 +48,6 @@
     text-align: center;
   }
 
-  /* BARRA DEI TASTI */
   .tab-bar {
     display: flex;
     justify-content: center;
@@ -119,15 +118,15 @@
   .pdf-image {
     width: 100%;
     border-radius: 10px;
+    margin-bottom: 20px;
   }
 </style>
 </head>
 
 <body>
 
-<a class="home-button" href="https://balza1979.github.io/Elmiader>
+<a class="home-button" href="https://balza1979.github.io/Elmiader">Home</a>
 
-<!-- ⭐ BARRA TASTI PER I FOGLI -->
 <div class="tab-bar">
   <button class="tab-button active" onclick="selezionaFoglio('errori', this)">X</button>
   <button class="tab-button" onclick="selezionaFoglio('stato_impianto', this)">Y</button>
@@ -149,15 +148,14 @@
 </div>
 
 <div class="pdf-container">
-  <img src="da.png
-  led_gialli.png
-  <img src="Info_aggiunt v1.png
+  <img src="da.png" class="pdf-image">
+  <img src="led_gialli.png" class="pdf-image">
+  <img src="Info_aggiuntive_errori v1.png" class="pdf-image">
 </div>
 
 <script>
 let workbookCache = null;
 
-/* ⭐ CARICA UNA SOLA VOLTA IL FILE EXCEL */
 async function loadWorkbook() {
   if (workbookCache) return workbookCache;
   const file = await fetch("errori.xlsx");
@@ -166,7 +164,6 @@ async function loadWorkbook() {
   return workbookCache;
 }
 
-/* ⭐ FUNZIONE PRINCIPALE: CARICA I DATI DA UN FOGLIO */
 async function caricaExcel(nomeFoglio) {
   const workbook = await loadWorkbook();
   const sheet = workbook.Sheets[nomeFoglio];
@@ -206,19 +203,14 @@ async function caricaExcel(nomeFoglio) {
   menu.dispatchEvent(new Event("change"));
 }
 
-/* ⭐ GESTIONE DELLA BARRA TASTI */
 function selezionaFoglio(nomeFoglio, bottone) {
   document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
   bottone.classList.add("active");
   caricaExcel(nomeFoglio);
 }
 
-/* ⭐ CARICA AUTOMATICAMENTE IL FOGLIO 'errori' ALL'AVVIO */
 caricaExcel("errori");
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
