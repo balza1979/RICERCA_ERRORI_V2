@@ -5,8 +5,8 @@
 <title>ELMI – Errori</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Libreria XLSX corretta -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<!-- Libreria XLSX -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xsx.full.min.js
 
 <style>
   body {
@@ -19,6 +19,7 @@
     font-family: Arial, sans-serif;
   }
 
+  /* ─────────────────────────────── BUTTON HOME ─────────────────────────────── */
   .home-button {
     position: fixed;
     font-size: 30px;
@@ -34,36 +35,35 @@
     transition: background-color 0.2s ease;
     z-index: 999;
   }
-
   .home-button:hover {
     background-color: #c9302c;
   }
 
-  header {
-    background: #b91c1c;
-    color: white;
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
+  /* ─────────────────────────────── TITOLI DELLE BARRE ─────────────────────────────── */
+  .tab-title {
     text-align: center;
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px 0 5px 0;  /* molto più compatto */
   }
 
+  /* ─────────────────────────────── CONTENITORE TAB-BAR ─────────────────────────────── */
   .tab-bar {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    
-    padding: 15px;
-    margin-top: 70px; /* 🔥 Aggiunto per abbassare X Y Z */
-}
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  /* ─────────────────────────────── BOTTONI ─────────────────────────────── */
   .tab-button {
     background: #1e40af;
     color: white;
-    padding: 12px 26px;
-    font-size: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
     border: none;
-    font-size: 8px;
-    border-radius: 8px;
+    border-radius: 12px;   /* angoli smussati */
     cursor: pointer;
     font-weight: bold;
     transition: 0.2s;
@@ -71,27 +71,29 @@
 
   .tab-button:hover {
     background: #1e3a8a;
-    font-size: 8px;
   }
 
   .tab-button.active {
     background: #0d9488;
   }
 
+  /* ─────────────────────────────── CONTENITORE CON BORDO ─────────────────────────────── */
   .container {
     max-width: 600px;
-    margin: 40px auto;
-    background-color: transparent !important;
-    padding: 30px;
-    border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.6);
+    margin: 30px auto;
+    background: rgba(255,255,255,0.12);
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid rgba(255,255,255,0.7);
+    box-shadow: 0 0 12px rgba(0,0,0,0.25);
+    backdrop-filter: blur(4px);
   }
 
   label {
     font-weight: bold;
     display: block;
-    margin-top: 20px;
-    font-size: 26px;
+    margin-top: 15px;
+    font-size: 22px;
     color: red;
   }
 
@@ -99,7 +101,7 @@
     width: 100%;
     padding: 10px;
     margin-top: 6px;
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid #9ca3af;
     font-size: 16px;
   }
@@ -109,6 +111,7 @@
     min-height: 90px;
   }
 
+  /* ─────────────────────────────── IMMAGINI PDF ─────────────────────────────── */
   .pdf-container {
     max-width: 900px;
     margin: 40px auto;
@@ -117,18 +120,19 @@
     border-radius: 12px;
     text-align: center;
   }
-
   .pdf-image {
     width: 100%;
     border-radius: 10px;
     margin-bottom: 20px;
   }
+
 </style>
 </head>
 
 <body>
 
-<a class="home-button" href="https://balza1979.github.io/Elmi-Documenti/">Home</a>
+https://balza1979.github.io/Elmi-Documenti/
+
 <h3 class="tab-title">SCHEDE ELMI</h3>
 <div class="tab-bar">
   <button class="tab-button active" onclick="selezionaFoglio('errori', this)">ERRORI BETA-K</button>
@@ -141,8 +145,9 @@
   <button class="tab-button" onclick="selezionaFoglio('lm2a_errori', this)">FUJI_LM2A</button>
   <button class="tab-button" onclick="selezionaFoglio('Nxp_errori', this)">VACON_NXP</button>
 </div>
+
 <div class="container">
-<label id="labelA">Caricamento...</label>
+  <label id="labelA">Caricamento...</label>
   <select id="menu"></select>
 
   <label id="labelB"></label>
@@ -156,13 +161,9 @@
 </div>
 
 <div class="pdf-container">
-  <img src="da.png" class="pdf-image">
-  <img src="led_gialli.png" class="pdf-image">
-  <img src="Info_aggiuntive_errori v1.png" class="pdf-image">
-</div>
-
-<script>
-let workbookCache = null;
+  da.png
+  led_gialli.png
+  <img src="Info_aggiuntive_errori v1.png" class="pdf-imageokCache = null;
 
 async function loadWorkbook() {
   if (workbookCache) return workbookCache;
