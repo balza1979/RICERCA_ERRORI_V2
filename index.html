@@ -57,27 +57,27 @@
 }
 
 }
-  .tab-button {
-    background: #1e40af;
-    color: white;
-    padding: 12px 26px;
-    font-size: 20px;
-    border: none;
-    font-size: 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
-  }
+.tab-button {
+  background: #d1d5db;       /* grigio chiaro */
+  color: #000;
+  padding: 12px 26px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;       /* TONDEGGIANTE */
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
 
-  .tab-button:hover {
-    background: #1e3a8a;
-    font-size: 8px;
-  }
+.tab-button:hover {
+  background: #bfc3c9;       /* grigio hover */
+}
 
-  .tab-button.active {
-    background: #0d9488;
-  }
+.tab-button.active {
+  background: #d9534f;       /* ROSSO */
+  color: white;
+  transform: scale(1);        /* NON cambia dimensione */
+}
 
   .container {
     max-width: 600px;
